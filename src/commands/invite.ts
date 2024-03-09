@@ -12,8 +12,8 @@ abstract class InviteCommand {
     ): Promise<void> {
         const member = user;
         
-        if (!interaction.memberPermissions?.has("ADMINISTRATOR")) {
-            await interaction.reply("Эта команда доступна только администраторам.");
+        if (!interaction.memberPermissions?.has("MANAGE_ROLES")) {
+            await interaction.reply("Эта команда доступна только с правами MANAGE_ROLES.");
             return;
         }
         
