@@ -11,22 +11,21 @@
   "author": "paper_sacculos",
   "license": "MIT",
   "devDependencies": {
-    "@tsconfig/node12": "^1.0.9",
-    "@types/node": "^16.11.4",
-    "@types/pseudo-localization": "^2.1.1",
+    "@tsconfig/node12": "^12.1.1",
+    "@types/node": "^20.11.25",
     "cross-env": "^7.0.3",
-    "eslint": "^8.1.0",
-    "nodemon": "^2.0.14",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.4.4"
+    "eslint": "^8.57.0",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
   },
   "dependencies": {
+    "@discordx/importer": "^1.3.0",
     "axios": "^1.6.7",
     "cheerio": "^1.0.0-rc.10",
-    "discord.js": "^13.2.0",
-    "discordx": "^7.0.0",
-    "dotenv": "^10.0.0",
-    "pseudo-localization": "^2.1.1",
+    "discord.js": "^14.14.1",
+    "discordx": "^11.9.0",
+    "dotenv": "^16.4.5",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.20"
   }

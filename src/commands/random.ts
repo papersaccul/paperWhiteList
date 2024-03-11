@@ -1,25 +1,36 @@
-import { CommandInteraction } from "discord.js";
-import { Discord, Slash, SlashChoice, SlashGroup, SlashOption } from "discordx";
+import { CommandInteraction, ApplicationCommandOptionType } from "discord.js";
+import { Discord, Slash, SlashOption } from "discordx";
 
 @Discord()
-@SlashGroup("random")
-abstract class RandomCommands {
+abstract class RandomCommand {
 
-    @Slash("number", { description: "Generate a random number." })
-    async random(
-        @SlashOption("min", { description: "The smallest number to be generated.", required: true })
+    @Slash({ name: "randomnumber", description: "Сгенерировать случайное число." })
+    async randomnumber(
+        @SlashOption({
+            name: "min", 
+            description: "Наименьшее число для генерации.", 
+            required: true, 
+            type: ApplicationCommandOptionType.Integer
+        })
         min: number,
-        @SlashOption("max", { description: "The largest number to be generated.", required: true })
+
+        @SlashOption({ 
+            name: "max", 
+            description: "Наибольшее число для генерации.", 
+            required: true, 
+            type: ApplicationCommandOptionType.Integer
+        })
         max: number,
         interaction: CommandInteraction
+
     ): Promise<void> {
         if (!Number.isInteger(min) || !Number.isInteger(max)) {
-            await interaction.reply("Both the minimum value and the maximum value must be integers.");
+            await interaction.reply("И минимальное значение, и максимальное значение должны быть целыми числами.");
             return;
         }
 
         if (min > max) {
-            await interaction.reply("The minimum value must be smaller or equal to the maximum value.");
+            await interaction.reply("Минимальное значение должно быть меньше или равно максимальному значению.");
             return;
         }
 

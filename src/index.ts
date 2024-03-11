@@ -1,36 +1,25 @@
 import "reflect-metadata";
-import path from "path";
-import { Client, IGuild } from "discordx";
-import { Intents } from "discord.js";
+import { Client } from "discordx";
+import { GatewayIntentBits } from "discord.js";
 import loadEnv from './dotenv';
+import { readdirSync } from "fs";
+import { join } from "path";
 
 loadEnv();
 
-var botGuilds: IGuild[] | undefined = undefined;
-
-if (process.env.GUILD_ID) {
-    botGuilds = [process.env.GUILD_ID];
-}
+const botGuilds = process.env.GUILD_ID ? [process.env.GUILD_ID] : [];
 
 const client = new Client({
     intents: [
-      Intents.FLAGS.GUILDS,
-      Intents.FLAGS.GUILD_MESSAGES,
-    ],
-    classes: [
-        path.join(__dirname, "commands", "**/*.{ts,js}"),
-        path.join(__dirname, "events", "**/*.{ts,js}")
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
     ],
     botGuilds: botGuilds
 });
 
-client.on("ready", async () => {
+client.once("ready", async () => {
     console.log("\n");
-    await client.initApplicationCommands({
-        guild: { log: true },
-        global: { log: true },
-    });
-    await client.initApplicationPermissions();
+    await client.initApplicationCommands();
     console.log(`\nLogged in as ${client.user!.tag}`);
 });
 
@@ -38,4 +27,25 @@ client.on("interactionCreate", (interaction) => {
     client.executeInteraction(interaction);
 });
 
-client.login(process.env.BOT_TOKEN as string);
+function importFiles(dir: string) {
+    const files = readdirSync(dir, { withFileTypes: true });
+
+    for (const file of files) {
+        const path = join(dir, file.name);
+        if (file.isDirectory()) {
+            importFiles(path);
+        } else if (file.name.endsWith(".ts") || file.name.endsWith(".js")) {
+            require(path);
+        }
+    }
+}
+
+async function start() {
+    importFiles(join(__dirname, "commands"));
+    //importFiles(join(__dirname, "utils"));
+    //importFiles(join(__dirname, "events"));
+
+    await client.login(process.env.BOT_TOKEN as string);
+}
+
+start().catch(console.error);
