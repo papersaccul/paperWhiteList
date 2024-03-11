@@ -1,14 +1,15 @@
 import { CommandInteraction, ApplicationCommandOptionType } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
+import { i18n } from "../utils/i18n";
 
 @Discord()
 abstract class RandomCommand {
 
-    @Slash({ name: "randomnumber", description: "Сгенерировать случайное число." })
+    @Slash({ name: "randomnumber", description: i18n.__("randomnumber.description") })
     async randomnumber(
         @SlashOption({
             name: "min", 
-            description: "Наименьшее число для генерации.", 
+            description: i18n.__("randomnumber.min.description"), 
             required: true, 
             type: ApplicationCommandOptionType.Integer
         })
@@ -16,7 +17,7 @@ abstract class RandomCommand {
 
         @SlashOption({ 
             name: "max", 
-            description: "Наибольшее число для генерации.", 
+            description: i18n.__("randomnumber.max.description"), 
             required: true, 
             type: ApplicationCommandOptionType.Integer
         })
@@ -25,12 +26,12 @@ abstract class RandomCommand {
 
     ): Promise<void> {
         if (!Number.isInteger(min) || !Number.isInteger(max)) {
-            await interaction.reply("И минимальное значение, и максимальное значение должны быть целыми числами.");
+            await interaction.reply(i18n.__("randomnumber.error.integer"));
             return;
         }
 
         if (min > max) {
-            await interaction.reply("Минимальное значение должно быть меньше или равно максимальному значению.");
+            await interaction.reply(i18n.__("randomnumber.error.minmax"));
             return;
         }
 
