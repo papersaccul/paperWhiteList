@@ -17,7 +17,7 @@ interface Config {
 @Discord()
 abstract class SetupCommand {
 
-    @Slash({ name: "setup", description: i18n.__("setup.description") })
+    @Slash({ name: "setupform", description: i18n.__("setup.description") })
     async setup(interaction: CommandInteraction): Promise<void> {
         
         await interaction.deferReply();

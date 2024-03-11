@@ -11,19 +11,28 @@ npm i
 ```
 
 ## Start
-U need create an .env.production file, to store the `BOT_TOKEN` variable, or pass it through docker
-
-```sh
-docker-compose up -d
+U need create an `.env.production` or `.env.development` file, to store the `BOT_TOKEN`, `LOCALE`, `GUILD_ID` variable
+```text
+BOT_TOKEN=YOUBOTTOKEN
+LOCALE=ua
+GUILD_ID=111111111111111111
 ```
-or 
+u can run it through npm
 ```sh
 npm start
 ``` 
+or through docker, u can also pass variables
+```sh
+docker-compose up -d --build --env BOT_TOKEN=YOUBOTTOKEN --env LOCALE=ua --env GUILD_ID=111111111111111111
+or
+docker run -e BOT_TOKEN=YOUBOTTOKEN -e LOCALE=ua -e GUILD_ID=111111111111111111
+```
+or 
+
 
 ## U can use dev mode, which will autorestart the bot when files are changed
 ```sh
 npm run dev
 ```
-
+*uses variables from env.development, also the GUILD_ID variable of the test server is required*
 

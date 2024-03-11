@@ -17,15 +17,15 @@ i18n.configure({
   register: global,
 
   logWarnFn: function (msg: string) {
-    console.log("Предупреждение локализации:", msg);
+    console.log("Localization Warning:", msg);
   },
 
   logErrorFn: function (msg: string) {
-    console.log("Ошибка локализации:", msg);
+    console.log("Localization Error:", msg);
   },
 
   missingKeyFn: function (locale: string, value: string) {
-    console.log(`Отсутствует ключ '${value}' для локали '${locale}'`);
+    console.log(`Missing key '${value}' for locale '${locale}'`);
     return value;
   },
 
