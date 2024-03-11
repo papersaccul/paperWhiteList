@@ -178,7 +178,7 @@ abstract class SetupCommand {
             if (action === 'accept') {
                 await message.edit({ content: `# Игрок ${userId} принят в город.`, components: [] });
 
-                const role = interaction.guild?.roles.cache.find(r => r.id === "1216828560057041076"); // роль вида на жительство
+                const role = interaction.guild?.roles.cache.find(r => r.id === "1208178813058682921"); // роль вида на жительство
                 if (role) {
                     await guildMember?.roles.add(role).catch(console.error);
                 }
@@ -190,7 +190,7 @@ abstract class SetupCommand {
             } else if (action === 'reject') {
                 await message.edit({ content: `# Заявка игрока ${userId} отклонена.`, components: [] });
                 
-                const role = interaction.guild?.roles.cache.find(r => r.id === "1216830076931543152"); // роль непринятой заявки
+                const role = interaction.guild?.roles.cache.find(r => r.id === "1216833211498238003"); // роль непринятой заявки
                 if (role) {
                     await guildMember?.roles.add(role).catch(console.error);
                 }
