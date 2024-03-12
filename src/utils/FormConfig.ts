@@ -3,12 +3,14 @@ import path from 'path';
 
 interface FormResponseConfig {
     [guildId: string]: {
-        channelId: string;
+        channelId?: string;
+        acceptRoleId?: string;
+        rejectRoleId?: string;
     };
 }
 
 class ConfigManager {
-    private static filePath = path.join(__dirname, 'FormResponseConfig.json');
+    private static filePath = path.join(__dirname, '../cfg/FormResponseConfig.json');
     private static config: { formResponse?: FormResponseConfig } = {};
 
     static loadConfig(): void {
@@ -17,7 +19,7 @@ class ConfigManager {
                 this.config = JSON.parse(fs.readFileSync(this.filePath, 'utf8'));
             }
         } catch (error) {
-            console.error('Load config error:', error);
+            console.error('Ошибка загрузки конфигурации:', error);
         }
     }
 
@@ -25,24 +27,26 @@ class ConfigManager {
         try {
             fs.writeFileSync(this.filePath, JSON.stringify(this.config, null, 2), 'utf8');
         } catch (error) {
-            console.error('Save config error:', error);
+            console.error('Ошибка сохранения конфигурации:', error);
         }
     }
 
-    static getFormResponseConfig(guildId: string): string | undefined {
-        return this.config.formResponse?.[guildId]?.channelId;
+    static getFormResponseConfig(guildId: string): { channelId?: string; acceptRoleId?: string; rejectRoleId?: string } | undefined {
+        return this.config.formResponse?.[guildId];
     }
 
-    static setFormResponseConfig(guildId: string, channelId: string): void {
+    static updateFormResponseConfig(guildId: string, configUpdate: Partial<{ channelId: string; acceptRoleId: string; rejectRoleId: string }>): void {
         if (!this.config.formResponse) {
             this.config.formResponse = {};
         }
-        if (this.config.formResponse[guildId]) {
-            console.log(`Update guildId: ${guildId} channelId: ${channelId}`);
-        } else {
-            console.log(`Create guildId: ${guildId} с channelId: ${channelId}`);
+        if (!this.config.formResponse[guildId]) {
+            this.config.formResponse[guildId] = {};
         }
-        this.config.formResponse[guildId] = { channelId };
+        this.config.formResponse[guildId] = {
+            ...this.config.formResponse[guildId],
+            ...configUpdate,
+        };
+        console.log(`Конфигурация для guildId: ${guildId} обновлена:`, configUpdate);
         this.saveConfig();
     }
 }

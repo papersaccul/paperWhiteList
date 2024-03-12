@@ -56,14 +56,22 @@ abstract class SetupCommand {
                 components: [btnWhiteList],
             });
 
-            await interaction.editReply({
+            const reply = await interaction.editReply({
                 content: i18n.__("setup.setupComplete", { channel: applyChannel.name }),
             });
 
+            setTimeout(async () => {
+                await reply.delete();
+            }, 3000);
+
         } else {
-            await interaction.editReply({
+            const reply = await interaction.editReply({
                 content: i18n.__("setup.noPermission"),
             });
+
+            setTimeout(async () => {
+                await reply.delete();
+            }, 3000);
         }
     }
 

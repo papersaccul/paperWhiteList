@@ -38,10 +38,12 @@ npm run dev
 
 # How do I use it?
 - Create `FormWhiteList.json` in `./cfg`.\
-There u can customize the form fields, as well as the roles that will be issued when this application is accepted or rejected (not required)
+There u can customize the form fields
 
-- via `/setformresponsechannel` set the channel to which the completed form will be sent to
+- via `/set responsechannel` set the channel to which the completed form will be sent to
 
-- via `/setupform` create a button for filling out the form\
+- via `/setupform` create a button for filling out the form
+
+- via `/set acceptrole role:` and `/set rejectrole role:` set the roles that will be issued when this form is accepted or rejected (not required)
 
 When accepted or rejected - a message is sent to the author of the form, which is specified in the localization file.

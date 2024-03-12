@@ -15,7 +15,10 @@
 	},
 	"setformresponsechannel": {
 		"description": "Установить канал для отправки формы заявки.",
-		"success": "Канал для отправки формы заявки установлен."
+		"success": "Канал для отправки формы заявки установлен.",
+		"error": {
+			"save": "setformresponsechannel.error.save"
+		}
 	},
 	"randomnumber": {
 		"description": "Рандомное число от min до max",
@@ -38,5 +41,13 @@
 		"acceptedDescription": "На первое время вам предоставляется вид на жительство. \n Не забудьте принять приглашение в город в вашем [личном кабинете](https://dreamscape.su/pc/) \n\n Также, ознакомьтесь с форумом <#1213190922284568597>`",
 		"applicationDenied": "Ваша заявка отклонена.",
 		"deniedDescription": "К сожалению, ваша заявка не была принята."
+	},
+	"setrole": {
+		"accept": {
+			"success": "setrole.accept.success"
+		},
+		"reject": {
+			"success": "setrole.reject.success"
+		}
 	}
 }

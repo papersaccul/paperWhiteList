@@ -3,12 +3,20 @@ import { ButtonInteraction, ModalSubmitInteraction, MessageComponentInteraction,
 import { Discord, ButtonComponent, ModalComponent } from "discordx";
 import { ConfigManager } from '../utils/FormConfig';
 import { i18n } from '../utils/i18n';
-import * as formCT from '../cfg/FormWhiteList.json';
+import * as formCT from '../cfg/FormWhiteList.json'; // Импорт данных из FormWhiteList.json
 
 @Discord()
 abstract class ModalHandlers {
     @ButtonComponent({ id: "ap_apply" })
     async handleApplyButton(interaction: ButtonInteraction): Promise<void> {
+        // Получение конфигурации формы из FormResponseConfig.json по ID гильдии
+        const guildId = interaction.guildId;
+        const formConfig = ConfigManager.getFormResponseConfig(guildId as string);
+        if (!formConfig) {
+            await interaction.reply({ content: i18n.__("modal.configNotFound"), ephemeral: true });
+            return;
+        }
+        // Использование данных о модальном окне из FormWhiteList.json
         const modalData = formCT.modal;
         const modal = new ModalBuilder()
             .setTitle(modalData.title)
@@ -36,14 +44,14 @@ abstract class ModalHandlers {
     @ModalComponent({ id: "CTform" })
     async handleCTform(interaction: ModalSubmitInteraction): Promise<void> {
         const guildId = interaction.guildId;
-        const channelId = ConfigManager.getFormResponseConfig(guildId as string);
+        const formConfig = ConfigManager.getFormResponseConfig(guildId as string);
 
-        if (!channelId) {
+        if (!formConfig || !formConfig.channelId) {
             await interaction.reply({ content: i18n.__("modal.channelNotFound"), ephemeral: true });
             return;
         }
 
-        const channel = await interaction.guild?.channels.fetch(channelId);
+        const channel = await interaction.guild?.channels.fetch(formConfig.channelId);
         if (!channel || !channel.isTextBased()) {
             await interaction.reply({ content: i18n.__("modal.channelNotAccessible"), ephemeral: true });
             return;
@@ -89,7 +97,7 @@ abstract class ModalHandlers {
                    i.message.id === messageId;
         };
 
-        const collector = channel.createMessageComponentCollector({ filter, time: 600000 });
+        const collector = channel.createMessageComponentCollector({ filter, time: 0 });
 
         collector.on('collect', async i => {
             if (!i.isButton()) return;
@@ -102,8 +110,8 @@ abstract class ModalHandlers {
             if (action === 'accept') {
                 await message.edit({ content: i18n.__("modal.playerAccepted", { userId: userId }), components: [] });
 
-                if (formCT.modal.acceptRoleId) {
-                    const role = interaction.guild?.roles.cache.get(formCT.modal.acceptRoleId);
+                if (formConfig.acceptRoleId) {
+                    const role = interaction.guild?.roles.cache.get(formConfig.acceptRoleId);
                     if (role) {
                         await guildMember?.roles.add(role).catch(console.error);
                     }
@@ -116,8 +124,8 @@ abstract class ModalHandlers {
             } else if (action === 'reject') {
                 await message.edit({ content: i18n.__("modal.applicationRejected", { userId: userId }), components: [] });
                 
-                if (formCT.modal.rejectRoleId) {
-                    const role = interaction.guild?.roles.cache.get(formCT.modal.rejectRoleId);
+                if (formConfig.rejectRoleId) {
+                    const role = interaction.guild?.roles.cache.get(formConfig.rejectRoleId);
                     if (role) {
                         await guildMember?.roles.add(role).catch(console.error);
                     }

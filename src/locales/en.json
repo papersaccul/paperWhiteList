@@ -15,7 +15,10 @@
 	},
 	"setformresponsechannel": {
 		"description": "Set the channel for sending the application form.",
-		"success": "The channel for sending the application form has been set."
+		"success": "The channel for sending the application form has been set.",
+		"error": {
+			"save": "setformresponsechannel.error.save"
+		}
 	},
 	"randomnumber": {
 		"description": "Random number from min to max",
@@ -38,5 +41,13 @@
 		"acceptedDescription": "For the first time, you are provided with a residence permit. \n Don't forget to accept the invitation to the city in your [personal account](https://dreamscape.su/pc/) \n\n Also, familiarize yourself with the forum <#1213190922284568597>`",
 		"applicationDenied": "Your application has been rejected.",
 		"deniedDescription": "Unfortunately, your application was not accepted."
+	},
+	"setrole": {
+		"accept": {
+			"success": "setrole.accept.success"
+		},
+		"reject": {
+			"success": "setrole.reject.success"
+		}
 	}
 }
