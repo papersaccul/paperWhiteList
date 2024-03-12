@@ -3,20 +3,18 @@ import { ButtonInteraction, ModalSubmitInteraction, MessageComponentInteraction,
 import { Discord, ButtonComponent, ModalComponent } from "discordx";
 import { ConfigManager } from '../utils/FormConfig';
 import { i18n } from '../utils/i18n';
-import * as formCT from '../cfg/FormWhiteList.json'; // Импорт данных из FormWhiteList.json
+import * as formCT from '../cfg/FormWhiteList.json';
 
 @Discord()
 abstract class ModalHandlers {
     @ButtonComponent({ id: "ap_apply" })
     async handleApplyButton(interaction: ButtonInteraction): Promise<void> {
-        // Получение конфигурации формы из FormResponseConfig.json по ID гильдии
         const guildId = interaction.guildId;
         const formConfig = ConfigManager.getFormResponseConfig(guildId as string);
         if (!formConfig) {
             await interaction.reply({ content: i18n.__("modal.configNotFound"), ephemeral: true });
             return;
         }
-        // Использование данных о модальном окне из FormWhiteList.json
         const modalData = formCT.modal;
         const modal = new ModalBuilder()
             .setTitle(modalData.title)

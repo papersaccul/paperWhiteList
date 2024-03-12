@@ -44,10 +44,20 @@
 	},
 	"setrole": {
 		"accept": {
-			"success": "setrole.accept.success"
+			"success": "Role for accepted applications set."
 		},
 		"reject": {
-			"success": "setrole.reject.success"
+			"success": "Role for rejected applications set."
+		},
+		"error": {
+			"admin": "You must be an administrator to use this command.",
+			"guild": "This command can only be used in a server.",
+			"save": "An error occurred while saving the role."
 		}
+	},
+	"config": {
+		"loadError": "Error loading configuration: {{error}}",
+		"saveError": "Error saving configuration: {{error}}",
+		"updateSuccess": "Configuration updated: {{guildId}} {{configUpdate}}"
 	}
 }

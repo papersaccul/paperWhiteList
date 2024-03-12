@@ -1,5 +1,7 @@
-FROM --platform=amd64 node:17-alpine
-FROM --platform=arm64 arm64v8/node:17-alpine
+ARG NODE_VERSION=18.18.2-slim
+FROM node:${NODE_VERSION} as base
+
+ENV USER=paperWhitelist
 
 WORKDIR /app
 COPY package*.json .

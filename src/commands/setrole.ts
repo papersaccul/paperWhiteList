@@ -4,13 +4,13 @@ import { ConfigManager } from '../utils/FormConfig';
 import { i18n } from '../utils/i18n';
 
 @Discord()
-@SlashGroup({ name: "set", description: "Управление переменными" })
+@SlashGroup({ name: "set", description: i18n.__("setrole.set.description") })
 
 @SlashGroup("set")
 abstract class SetRoleCommands {
-  @Slash({ name: "acceptrole", description: "Установить роль для принятия форм" })
+  @Slash({ name: "acceptrole", description: i18n.__("setrole.accept.description") })
   async setAcceptRole(
-    @SlashOption({ name: "role", description: "ID роли для принятия", type: ApplicationCommandOptionType.Role })
+    @SlashOption({ name: "role", description: i18n.__("setrole.role.description"), type: ApplicationCommandOptionType.Role })
     acceptRoleId: Role,
     interaction: CommandInteraction
   ): Promise<void> {
@@ -34,9 +34,9 @@ abstract class SetRoleCommands {
     }
   }
 
-  @Slash({ name: "rejectrole", description: "Установить роль для отклонения форм" })
+  @Slash({ name: "rejectrole", description: i18n.__("setrole.reject.description") })
   async setRejectRole(
-    @SlashOption({ name: "role", description: "ID роли для отклонения", type: ApplicationCommandOptionType.Role })
+    @SlashOption({ name: "role", description: i18n.__("setrole.role.description"), type: ApplicationCommandOptionType.Role })
     rejectRoleId: Role,
     interaction: CommandInteraction
   ): Promise<void> {

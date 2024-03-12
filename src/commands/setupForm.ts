@@ -4,7 +4,7 @@ import { CommandInteraction, ChannelType, EmbedBuilder, ButtonBuilder,
 import { Discord, Slash} from "discordx";
 import * as dotenv from 'dotenv';
 import { i18n } from '../utils/i18n';
-import formCT from '../cfg/FormWhiteList.json'; // Добавлен импорт данных из JSON
+import formCT from '../cfg/FormWhiteList.json';
 
 dotenv.config();
 

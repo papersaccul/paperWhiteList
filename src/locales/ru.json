@@ -44,10 +44,20 @@
 	},
 	"setrole": {
 		"accept": {
-			"success": "setrole.accept.success"
+			"success": "Роль для принятых заявок установлена."
 		},
 		"reject": {
-			"success": "setrole.reject.success"
+			"success": "Роль для отклоненных заявок установлена."
+		},
+		"error": {
+			"admin": "setrole.error.admin",
+			"guild": "setrole.error.guild",
+			"save": "setrole.error.save"
 		}
+	},
+	"config": {
+		"loadError": "Ошибка при загрузке конфигурации: {{error}}",
+		"saveError": "Ошибка при сохранении конфигурации: {{error}}",
+		"updateSuccess": "Конфигурация обновлена: {{guildId}} {{configUpdate}}"
 	}
 }
