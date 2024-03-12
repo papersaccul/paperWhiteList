@@ -4,46 +4,14 @@
 		"channelNotFound": "Application submission channel not found. Please make sure you are using this command in a text channel.",
 		"fillForm": "Fill out the form",
 		"joinInstructions": "Join our community! Please click the button below to fill out the application form.",
-		"setupComplete": "Setup complete. The application form is available in the {{channel}} channel.",
+		"setupComplete": "Setup complete. Application form is available in the {{channel}} channel.",
 		"noPermission": "You do not have permission to execute this command."
-	},
-	"modal": {
-		"title": "Application form",
-		"nickLabel": "Your nickname",
-		"nickPlaceholder": "Enter your nickname",
-		"ageLabel": "Your age",
-		"agePlaceholder": "Enter your age",
-		"weekOnlineLabel": "How much time do you spend online per week?",
-		"weekOnlinePlaceholder": "Enter the number of hours",
-		"didKnowLabel": "How did you find out about us?",
-		"didKnowPlaceholder": "Specify how you found us",
-		"beDoingLabel": "What do you plan to do?",
-		"beDoingPlaceholder": "Describe your plans",
-		"channelNotFound": "Application submission channel not found.",
-		"channelNotAccessible": "Application submission channel is not accessible.",
-		"newApplication": "New application",
-		"userFooter": "User ID: {{id}}",
-		"applicationSubmitted": "Your application has been submitted.",
-		"playerAccepted": "Player with ID {{userId}} accepted.",
-		"applicationAccepted": "Your application has been accepted!",
-		"acceptedDescription": "For the first time, you are granted a residence permit. \n Don't forget to accept the invitation to the city in your [personal account](https://dreamscape.su/pc/) \n\n Also, familiarize yourself with the forum <#1213190922284568597>`",
-		"applicationRejected": "Player with ID {{userId}} rejected.",
-		"applicationDenied": "Your application has been denied.",
-		"deniedDescription": "Unfortunately, your application was not accepted.",
-		"accept": "Accept",
-		"reject": "Reject",
-		"undefinedEmbedError": "Undefined embedding error.",
-		"nickField": "Your nickname",
-		"ageField": "Your age",
-		"weekOnlineField": "How much time do you spend online per week?",
-		"didKnowField": "How did you find out about us?",
-		"beDoingField": "What do you plan to do?"
 	},
 	"ping": {
 		"description": "Bot delay",
 		"title": "Bot delay",
 		"roundtrip": "Round trip delay",
-		"websocket": "WebSocket delay"
+		"websocket": "Websocket delay"
 	},
 	"setformresponsechannel": {
 		"description": "Set the channel for sending the application form.",
@@ -57,5 +25,18 @@
 		"max": {
 			"description": "Maximum value."
 		}
+	},
+	"modal": {
+		"newApplication": "New application",
+		"userFooter": "User ID: {{id}}",
+		"accept": "Accept",
+		"reject": "Reject",
+		"applicationSubmitted": "Your application is under review.",
+		"applicationRejected": "Player {{userId}} rejected.",
+		"playerAccepted": "Player {{userId}} accepted",
+		"applicationAccepted": "Your application has been accepted!",
+		"acceptedDescription": "For the first time, you are provided with a residence permit. \n Don't forget to accept the invitation to the city in your [personal account](https://dreamscape.su/pc/) \n\n Also, familiarize yourself with the forum <#1213190922284568597>`",
+		"applicationDenied": "Your application has been rejected.",
+		"deniedDescription": "Unfortunately, your application was not accepted."
 	}
 }

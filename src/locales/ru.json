@@ -7,38 +7,6 @@
 		"setupComplete": "Настройка завершена. Форма заявок доступна в канале {{channel}}.",
 		"noPermission": "У вас нет разрешения на выполнение этой команды."
 	},
-	"modal": {
-		"title": "Форма заявки",
-		"nickLabel": "Ваш никнейм",
-		"nickPlaceholder": "Введите ваш никнейм",
-		"ageLabel": "Ваш возраст",
-		"agePlaceholder": "Введите ваш возраст",
-		"weekOnlineLabel": "Сколько времени вы проводите онлайн в неделю?",
-		"weekOnlinePlaceholder": "Введите количество часов",
-		"didKnowLabel": "Как вы узнали о нас?",
-		"didKnowPlaceholder": "Укажите, как вы нас нашли",
-		"beDoingLabel": "Чем вы планируете заниматься?",
-		"beDoingPlaceholder": "Опишите ваши планы",
-		"channelNotFound": "Канал для отправки заявок не найден.",
-		"channelNotAccessible": "Канал для отправки заявок недоступен.",
-		"newApplication": "Новая заявка",
-		"userFooter": "ID пользователя: {{id}}",
-		"applicationSubmitted": "Ваша заявка отправлена.",
-		"playerAccepted": "Игрок с ID {{userId}} принят.",
-		"applicationAccepted": "Ваша заявка принята!",
-		"acceptedDescription": "На первое время вам выдан вид на жительство. \n Не забудьте принять приглашение в город в [личном кабинете](https://dreamscape.su/pc/) \n\n Так же ознакомьтесь с форумом <#1213190922284568597>`",
-		"applicationRejected": "Игрок с ID {{userId}} отклонен.",
-		"applicationDenied": "Ваша заявка отклонена.",
-		"deniedDescription": "К сожалению, ваша заявка не была принята.",
-		"accept": "Принять",
-		"reject": "Отклонить",
-		"undefinedEmbedError": "Неопределенная ошибка встраивания.",
-		"nickField": "Ваш никнейм",
-		"ageField": "Ваш возраст",
-		"weekOnlineField": "Сколько времени вы проводите онлайн в неделю?",
-		"didKnowField": "Как вы узнали о нас?",
-		"beDoingField": "Чем вы планируете заниматься?"
-	},
 	"ping": {
 		"description": "Задержка бота",
 		"title": "Задержка бота",
@@ -57,5 +25,18 @@
 		"max": {
 			"description": "Максимальное значение."
 		}
+	},
+	"modal": {
+		"newApplication": "Новая заявка",
+		"userFooter": "User ID: {{id}}",
+		"accept": "Принять",
+		"reject": "Отклонить",
+		"applicationSubmitted": "Ваша заявка на рассмотрении.",
+		"applicationRejected": "Игрок {{userId}} отклонён.",
+		"playerAccepted": "Игрок {{userId}} принят",
+		"applicationAccepted": "Ваша заявка принята!",
+		"acceptedDescription": "На первое время вам предоставляется вид на жительство. \n Не забудьте принять приглашение в город в вашем [личном кабинете](https://dreamscape.su/pc/) \n\n Также, ознакомьтесь с форумом <#1213190922284568597>`",
+		"applicationDenied": "Ваша заявка отклонена.",
+		"deniedDescription": "К сожалению, ваша заявка не была принята."
 	}
 }

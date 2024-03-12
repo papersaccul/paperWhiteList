@@ -1,8 +1,10 @@
 import { CommandInteraction, ChannelType, EmbedBuilder, ButtonBuilder, 
-         ButtonStyle, ActionRowBuilder, PermissionFlagsBits} from "discord.js";
+         ButtonStyle, ActionRowBuilder, PermissionFlagsBits,
+         ColorResolvable} from "discord.js";
 import { Discord, Slash} from "discordx";
 import * as dotenv from 'dotenv';
 import { i18n } from '../utils/i18n';
+import formCT from '../cfg/FormWhiteList.json'; // Добавлен импорт данных из JSON
 
 dotenv.config();
 
@@ -30,22 +32,27 @@ abstract class SetupCommand {
 
         if (interaction.memberPermissions?.has(PermissionFlagsBits.ManageRoles)) {
 
-            let btnWhiteList = new ActionRowBuilder<ButtonBuilder>().addComponents(
-                new ButtonBuilder()
-                    .setStyle(ButtonStyle.Primary)
-                    .setCustomId("ap_apply")
-                    .setLabel(i18n.__("setup.fillForm"))
-                    .setEmoji("📑"),
+            let buttonBuilder = new ButtonBuilder()
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId("ap_apply")
+                .setLabel(formCT.modal.buttonLabel || i18n.__("setup.fillForm"));
 
-            );
+            if (formCT.modal.buttonEmoji) {
+                buttonBuilder.setEmoji(formCT.modal.buttonEmoji);
+            }
+
+            let btnWhiteList = new ActionRowBuilder<ButtonBuilder>().addComponents(buttonBuilder);
+
+            let embed = new EmbedBuilder()
+                .setColor(formCT.modal.color as ColorResolvable || "#00e5ff")
+                .setTitle(formCT.modal.joinInstructions || i18n.__("setup.joinInstructions"));
+
+            if (formCT.modal.thumbnail) {
+                embed.setThumbnail(formCT.modal.thumbnail);
+            }
 
             await applyChannel.send({
-                embeds: [
-                    new EmbedBuilder()
-                        .setColor("#00e5ff")
-                        .setThumbnail("https://cdn.discordapp.com/attachments/762837041955733554/1216395187090231346/chilltown_logo_trsp.png?ex=66003b4c&is=65edc64c&hm=4983b5fb8150f7007f91f2d70dea86e72ed81b35d85b6621902f77f74ccb2bdf&")
-                        .setTitle(i18n.__("setup.joinInstructions"))
-                ],
+                embeds: [embed],
                 components: [btnWhiteList],
             });
 

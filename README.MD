@@ -5,7 +5,7 @@ U can use it as a base for their super-duper-mega bot by removing all my slag fr
 
 ## install
 ```sh
-git clone https://github.com/papersaccul/paper_bot3`
+git clone https://github.com/papersaccul/paper_bot3
 cd paper_bot3
 npm i
 ```
@@ -36,3 +36,12 @@ npm run dev
 ```
 *uses variables from env.development, also the GUILD_ID variable of the test server is required*
 
+# How do I use it?
+- Create `FormWhiteList.json` in `./cfg`.\
+There u can customize the form fields, as well as the roles that will be issued when this application is accepted or rejected (not required)
+
+- via `/setformresponsechannel` set the channel to which the completed form will be sent to
+
+- via `/setupform` create a button for filling out the form\
+
+When accepted or rejected - a message is sent to the author of the form, which is specified in the localization file.

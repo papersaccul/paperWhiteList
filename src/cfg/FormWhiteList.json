@@ -1,0 +1,63 @@
+{
+  "modal": {
+    "title": "Форма заявки",
+    "joinInstructions": "Добро пожаловать! Пожалуйста, заполните форму заявки, чтобы присоединиться к нам.",
+    "buttonLabel": "Заполнить форму",
+    "buttonEmoji": "📑",
+    "color": "#00e5ff",
+    "thumbnail": "https://cdn.discordapp.com/attachments/762837041955733554/1216395187090231346/chilltown_logo_trsp.png",
+    "components": [
+      {
+        "components": [
+          {
+            "custom_id": "nick",
+            "label": "Ваш никнейм",
+            "max_length": "64",
+            "placeholder": "Введите ваш никнейм",
+            "type": 4,
+            "required": true,
+            "style": "Short"
+          },
+          {
+            "custom_id": "age",
+            "label": "Ваш возраст",
+            "max_length": "2",
+            "placeholder": "Введите ваш возраст",
+            "type": 4,
+            "required": true,
+            "style": "Short"
+          },
+          {
+            "custom_id": "weekOnline",
+            "label": "Сколько времени вы проводите онлайн в неделю?",
+            "max_length": "32",
+            "placeholder": "Введите количество часов",
+            "type": 4,
+            "required": true,
+            "style": "Short"
+          },
+          {
+            "custom_id": "didKnow",
+            "label": "Как вы узнали о нас?",
+            "max_length": "256",
+            "placeholder": "Укажите, как вы нас нашли",
+            "type": 4,
+            "required": true,
+            "style": "Short"
+          },
+          {
+            "custom_id": "beDoing",
+            "label": "Чем вы планируете заниматься?",
+            "max_length": "512",
+            "placeholder": "Опишите ваши планы",
+            "type": 4,
+            "required": true,
+            "style": "Short"
+          }
+        ]
+      }
+    ],
+    "acceptRoleId": "1216828560057041076",
+    "rejectRoleId": "1216830076931543152"
+  }
+}

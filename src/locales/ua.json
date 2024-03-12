@@ -7,38 +7,6 @@
 		"setupComplete": "Налаштування завершено. Форма заявок доступна в каналі {{channel}}.",
 		"noPermission": "У вас немає дозволу на виконання цієї команди."
 	},
-	"modal": {
-		"title": "Форма заявки",
-		"nickLabel": "Ваш нікнейм",
-		"nickPlaceholder": "Введіть ваш нікнейм",
-		"ageLabel": "Ваш вік",
-		"agePlaceholder": "Введіть ваш вік",
-		"weekOnlineLabel": "Скільки часу ви проводите онлайн за тиждень?",
-		"weekOnlinePlaceholder": "Введіть кількість годин",
-		"didKnowLabel": "Як ви дізналися про нас?",
-		"didKnowPlaceholder": "Вкажіть, як ви нас знайшли",
-		"beDoingLabel": "Чим ви плануєте займатися?",
-		"beDoingPlaceholder": "Опишіть ваші плани",
-		"channelNotFound": "Канал для відправки заявок не знайдений.",
-		"channelNotAccessible": "Канал для відправки заявок недоступний.",
-		"newApplication": "Нова заявка",
-		"userFooter": "ID користувача: {{id}}",
-		"applicationSubmitted": "Ваша заявка відправлена.",
-		"playerAccepted": "Гравець з ID {{userId}} прийнятий.",
-		"applicationAccepted": "Ваша заявка прийнята!",
-		"acceptedDescription": "На перший час вам видано вид на проживання. \n Не забудьте прийняти запрошення в місто в [особистому кабінеті](https://dreamscape.su/pc/) \n\n Також ознайомтеся з форумом <#1213190922284568597>`",
-		"applicationRejected": "Гравець з ID {{userId}} відхилений.",
-		"applicationDenied": "Ваша заявка відхилена.",
-		"deniedDescription": "На жаль, ваша заявка не була прийнята.",
-		"accept": "Прийняти",
-		"reject": "Відхилити",
-		"undefinedEmbedError": "Невизначена помилка вбудовування.",
-		"nickField": "Ваш нікнейм",
-		"ageField": "Ваш вік",
-		"weekOnlineField": "Скільки часу ви проводите онлайн за тиждень?",
-		"didKnowField": "Як ви дізналися про нас?",
-		"beDoingField": "Чим ви плануєте займатися?"
-	},
 	"ping": {
 		"description": "Затримка бота",
 		"title": "Затримка бота",
@@ -46,8 +14,8 @@
 		"websocket": "Затримка веб-сокета"
 	},
 	"setformresponsechannel": {
-		"description": "Встановити канал для відправки форми заявки.",
-		"success": "Канал для відправки форми заявки встановлено."
+		"description": "Встановити канал для відправлення форми заявки.",
+		"success": "Канал для відправлення форми заявки встановлено."
 	},
 	"randomnumber": {
 		"description": "Випадкове число від min до max",
@@ -57,5 +25,18 @@
 		"max": {
 			"description": "Максимальне значення."
 		}
+	},
+	"modal": {
+		"newApplication": "Нова заявка",
+		"userFooter": "User ID: {{id}}",
+		"accept": "Прийняти",
+		"reject": "Відхилити",
+		"applicationSubmitted": "Ваша заявка на розгляді.",
+		"applicationRejected": "Гравець {{userId}} відхилений.",
+		"playerAccepted": "Гравець {{userId}} прийнятий",
+		"applicationAccepted": "Ваша заявка прийнята!",
+		"acceptedDescription": "На перше час вам надається вид на проживання. \n Не забудьте прийняти запрошення в місто в вашому [особистому кабінеті](https://dreamscape.su/pc/) \n\n Також, ознайомтеся з форумом <#1213190922284568597>`",
+		"applicationDenied": "Ваша заявка відхилена.",
+		"deniedDescription": "На жаль, ваша заявка не була прийнята."
 	}
 }

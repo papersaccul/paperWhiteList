@@ -1,60 +1,38 @@
-import { ButtonInteraction, ModalSubmitInteraction, MessageComponentInteraction, ModalBuilder } from "discord.js";
+import { ButtonInteraction, ModalSubmitInteraction, MessageComponentInteraction, ModalBuilder,
+         TextInputBuilder, TextInputStyle, ActionRowBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { Discord, ButtonComponent, ModalComponent } from "discordx";
 import { ConfigManager } from '../utils/FormConfig';
 import { i18n } from '../utils/i18n';
-import { EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
+import * as formCT from '../cfg/FormWhiteList.json';
 
 @Discord()
 abstract class ModalHandlers {
-@ButtonComponent({ id: "ap_apply" })
+    @ButtonComponent({ id: "ap_apply" })
     async handleApplyButton(interaction: ButtonInteraction): Promise<void> {
+        const modalData = formCT.modal;
+        const modal = new ModalBuilder()
+            .setTitle(modalData.title)
+            .setCustomId("CTform");
 
-            const modal = new ModalBuilder()
-                .setTitle(i18n.__("modal.title"))
-                .setCustomId("CTform")
-    
-            const nickInputComponent = new TextInputBuilder()
-                .setCustomId("nickField")
-                .setLabel(i18n.__("modal.nickLabel"))
-                .setStyle(TextInputStyle.Short)
-                .setPlaceholder(i18n.__("modal.nickPlaceholder"))
-    
-            const ageInputComponent = new TextInputBuilder()
-                .setCustomId("ageField")
-                .setLabel(i18n.__("modal.ageLabel"))
-                .setStyle(TextInputStyle.Short)
-                .setPlaceholder(i18n.__("modal.agePlaceholder"))
-    
-            const weekOnlineComponent = new TextInputBuilder()
-                .setCustomId("weekOnlineField")
-                .setLabel(i18n.__("modal.weekOnlineLabel"))
-                .setStyle(TextInputStyle.Short)
-                .setPlaceholder(i18n.__("modal.weekOnlinePlaceholder"))
-    
-            const didKnowComponent = new TextInputBuilder()
-                .setCustomId("didKnowField")
-                .setLabel(i18n.__("modal.didKnowLabel"))
-                .setStyle(TextInputStyle.Short)
-                .setPlaceholder(i18n.__("modal.didKnowPlaceholder"))
-    
-            const beDoingComponent = new TextInputBuilder()
-                .setCustomId("beDoingField")
-                .setLabel(i18n.__("modal.beDoingLabel"))
-                .setStyle(TextInputStyle.Short)
-                .setPlaceholder(i18n.__("modal.beDoingPlaceholder"))
-    
-            const rows = [
-                new ActionRowBuilder<TextInputBuilder>().addComponents(nickInputComponent),
-                new ActionRowBuilder<TextInputBuilder>().addComponents(ageInputComponent),
-                new ActionRowBuilder<TextInputBuilder>().addComponents(weekOnlineComponent),
-                new ActionRowBuilder<TextInputBuilder>().addComponents(didKnowComponent),
-                new ActionRowBuilder<TextInputBuilder>().addComponents(beDoingComponent),
-            ];
+        const rows = modalData.components.flatMap(component =>
+            component.components.filter(comp => comp.type === 4)
+                .map(comp => {
+                    const textInput = new TextInputBuilder()
+                        .setCustomId(comp.custom_id)
+                        .setLabel(comp.label)
+                        .setStyle(TextInputStyle[comp.style as keyof typeof TextInputStyle] || TextInputStyle.Short)
+                        .setMaxLength(Number(comp.max_length) || 512)
+                        .setPlaceholder(comp.placeholder)
+                        .setRequired(comp.required || false);
+                    return new ActionRowBuilder<TextInputBuilder>().addComponents(textInput);
+                })
+        );
 
-            modal.addComponents(...rows);
-    
-            interaction.showModal(modal);
+        modal.addComponents(...rows);
+
+        interaction.showModal(modal);
     }
+
     @ModalComponent({ id: "CTform" })
     async handleCTform(interaction: ModalSubmitInteraction): Promise<void> {
         const guildId = interaction.guildId;
@@ -77,11 +55,11 @@ abstract class ModalHandlers {
             .setAuthor({ name: interaction.user.username, iconURL: interaction.user.avatarURL() ?? undefined })            
             .setFooter({ text: i18n.__("modal.userFooter", { id: interaction.user.id }) })
             .addFields(
-                { name: i18n.__("modal.nickField"), value: fields.getTextInputValue("nickField"), inline: true },
-                { name: i18n.__("modal.ageField"), value: fields.getTextInputValue("ageField"), inline: true },
-                { name: i18n.__("modal.weekOnlineField"), value: fields.getTextInputValue("weekOnlineField"), inline: true },
-                { name: i18n.__("modal.didKnowField"), value: fields.getTextInputValue("didKnowField"), inline: true },
-                { name: i18n.__("modal.beDoingField"), value: fields.getTextInputValue("beDoingField"), inline: true }
+                formCT.modal.components.flatMap(component => 
+                    component.components.map(comp => 
+                        ({ name: comp.label, value: fields.getTextInputValue(comp.custom_id), inline: true })
+                    )
+                )
             )
             .setColor("#0099ff");
         const acceptButton = new ButtonBuilder()
@@ -111,7 +89,7 @@ abstract class ModalHandlers {
                    i.message.id === messageId;
         };
 
-        const collector = channel.createMessageComponentCollector({ filter, time: 6000000 });
+        const collector = channel.createMessageComponentCollector({ filter, time: 600000 });
 
         collector.on('collect', async i => {
             if (!i.isButton()) return;
@@ -124,9 +102,11 @@ abstract class ModalHandlers {
             if (action === 'accept') {
                 await message.edit({ content: i18n.__("modal.playerAccepted", { userId: userId }), components: [] });
 
-                const role = interaction.guild?.roles.cache.find(r => r.id === "1208178813058682921"); // роль вида на жительство
-                if (role) {
-                    await guildMember?.roles.add(role).catch(console.error);
+                if (formCT.modal.acceptRoleId) {
+                    const role = interaction.guild?.roles.cache.get(formCT.modal.acceptRoleId);
+                    if (role) {
+                        await guildMember?.roles.add(role).catch(console.error);
+                    }
                 }
 
                 embed = new EmbedBuilder()
@@ -136,9 +116,11 @@ abstract class ModalHandlers {
             } else if (action === 'reject') {
                 await message.edit({ content: i18n.__("modal.applicationRejected", { userId: userId }), components: [] });
                 
-                const role = interaction.guild?.roles.cache.find(r => r.id === "1216833211498238003"); // роль непринятой заявки
-                if (role) {
-                    await guildMember?.roles.add(role).catch(console.error);
+                if (formCT.modal.rejectRoleId) {
+                    const role = interaction.guild?.roles.cache.get(formCT.modal.rejectRoleId);
+                    if (role) {
+                        await guildMember?.roles.add(role).catch(console.error);
+                    }
                 }
 
                 embed = new EmbedBuilder()
@@ -155,4 +137,3 @@ abstract class ModalHandlers {
         });
     }
 }
-
