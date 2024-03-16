@@ -8,13 +8,12 @@ import { i18n } from '../utils/i18n';
 
 @SlashGroup("set")
 abstract class SetRoleCommands {
-  @Slash({ name: "acceptrole", description: i18n.__("setrole.accept.description") })
-  async setAcceptRole(
-    @SlashOption({ name: "role", description: i18n.__("setrole.role.description"), type: ApplicationCommandOptionType.Role })
-    acceptRoleId: Role,
-    interaction: CommandInteraction
+  private async handleRoleSetting(
+    interaction: CommandInteraction,
+    roleId: Role,
+    configKey: 'acceptRoleId' | 'rejectRoleId',
+    successMessageKey: string
   ): Promise<void> {
-
     if (!interaction.memberPermissions?.has(PermissionFlagsBits.Administrator)) {
       await interaction.reply(i18n.__("setrole.error.admin"));
       return;
@@ -26,12 +25,21 @@ abstract class SetRoleCommands {
     }
 
     try {
-      ConfigManager.updateFormResponseConfig(interaction.guildId, { acceptRoleId: acceptRoleId.id });
-      await interaction.reply(i18n.__("setrole.accept.success", { roleId: acceptRoleId.id }));
+      ConfigManager.updateFormResponseConfig(interaction.guildId, { [configKey]: roleId.id });
+      await interaction.reply(i18n.__(successMessageKey, { roleId: roleId.id }));
     } catch (error) {
       console.error(i18n.__("setrole.error.save"), error);
       await interaction.reply(i18n.__("setrole.error.save"));
     }
+  }
+
+  @Slash({ name: "acceptrole", description: i18n.__("setrole.accept.description") })
+  async setAcceptRole(
+    @SlashOption({ name: "role", description: i18n.__("setrole.role.description"), type: ApplicationCommandOptionType.Role })
+    acceptRoleId: Role,
+    interaction: CommandInteraction
+  ): Promise<void> {
+    await this.handleRoleSetting(interaction, acceptRoleId, 'acceptRoleId', "setrole.accept.success");
   }
 
   @Slash({ name: "rejectrole", description: i18n.__("setrole.reject.description") })
@@ -40,23 +48,6 @@ abstract class SetRoleCommands {
     rejectRoleId: Role,
     interaction: CommandInteraction
   ): Promise<void> {
-
-    if (!interaction.memberPermissions?.has(PermissionFlagsBits.Administrator)) {
-      await interaction.reply(i18n.__("setrole.error.admin"));
-      return;
-    }
-
-    if (!interaction.guildId) {
-      await interaction.reply(i18n.__("setrole.error.guild"));
-      return;
-    }
-
-    try {
-      ConfigManager.updateFormResponseConfig(interaction.guildId, { rejectRoleId: rejectRoleId.id });
-      await interaction.reply(i18n.__("setrole.reject.success", { roleId: rejectRoleId.id }));
-    } catch (error) {
-      console.error(i18n.__("setrole.error.save"), error);
-      await interaction.reply(i18n.__("setrole.error.save"));
-    }
+    await this.handleRoleSetting(interaction, rejectRoleId, 'rejectRoleId', "setrole.reject.success");
   }
 }
