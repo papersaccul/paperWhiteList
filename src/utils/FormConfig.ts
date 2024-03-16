@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { i18n } from './i18n';
 
 interface FormResponseConfig {
     [guildId: string]: {
@@ -19,7 +20,7 @@ class ConfigManager {
                 this.config = JSON.parse(fs.readFileSync(this.filePath, 'utf8'));
             }
         } catch (error) {
-            console.error('Ошибка загрузки конфигурации:', error);
+            console.error(i18n.__("config.loadError"), error);
         }
     }
 
@@ -27,7 +28,7 @@ class ConfigManager {
         try {
             fs.writeFileSync(this.filePath, JSON.stringify(this.config, null, 2), 'utf8');
         } catch (error) {
-            console.error('Ошибка сохранения конфигурации:', error);
+            console.error(i18n.__("config.saveError"), error);
         }
     }
 
@@ -46,7 +47,7 @@ class ConfigManager {
             ...this.config.formResponse[guildId],
             ...configUpdate,
         };
-        console.log(`Конфигурация для guildId: ${guildId} обновлена:`, configUpdate);
+        console.log(i18n.__("config.updateSuccess"), guildId, configUpdate);
         this.saveConfig();
     }
 }
