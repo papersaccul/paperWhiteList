@@ -7,14 +7,19 @@ abstract class PingCommand {
 
     @Slash({ name: "ping", description: i18n.__("ping.description") })
     async ping(interaction: CommandInteraction): Promise<void> {
+
         const reply = (await interaction.deferReply({ fetchReply: true })) as Message;
+        const roundTripLatency = reply.createdTimestamp - interaction.createdTimestamp;
+        const websocketPing = interaction.client.ws.ping;
+
         const embed = new EmbedBuilder()
                 .setTitle(i18n.__("ping.title"))
                 .addFields(
-                    { name: i18n.__("ping.roundtrip"), value: `\`\`\`${reply.createdTimestamp - interaction.createdTimestamp} ms\`\`\``, inline: true },
-                    { name: i18n.__("ping.websocket"), value: `\`\`\`${interaction.client.ws.ping} ms\`\`\``, inline: true }
+                    { name: i18n.__("ping.roundtrip"), value: `\`\`\`${roundTripLatency} ms\`\`\``, inline: true },
+                    { name: i18n.__("ping.websocket"), value: `\`\`\`${websocketPing} ms\`\`\``, inline: true }
                 )
                 .setColor("#00ff7f");
+
         interaction.editReply({ embeds: [embed] });
     }
 }

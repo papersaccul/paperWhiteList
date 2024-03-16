@@ -6,7 +6,7 @@ import { i18n } from "../utils/i18n";
 abstract class RandomCommand {
 
     @Slash({ name: "randomnumber", description: i18n.__("randomnumber.description") })
-    async randomnumber(
+    async generateRandomNumber(
         @SlashOption({
             name: "min", 
             description: i18n.__("randomnumber.min.description"), 
@@ -30,12 +30,12 @@ abstract class RandomCommand {
             return;
         }
 
-        if (min > max) {
+        if (min >= max) {
             await interaction.reply(i18n.__("randomnumber.error.minmax"));
             return;
         }
 
-        const draw = Math.trunc(Math.random() * (max - min) + min);
-        await interaction.reply(`${draw}`);
+        const randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
+        await interaction.reply(`${randomNumber}`);
     }
 }

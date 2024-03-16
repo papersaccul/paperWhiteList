@@ -36,7 +36,7 @@ abstract class ModalHandlers {
 
         modal.addComponents(...rows);
 
-        interaction.showModal(modal);
+        await interaction.showModal(modal);
     }
 
     @ModalComponent({ id: "CTform" })
@@ -89,11 +89,9 @@ abstract class ModalHandlers {
         });
         const messageId = channel.lastMessageId;
 
-        const filter = (i: MessageComponentInteraction) => {
-            return i.isButton() && 
-                   (i.customId.includes(`accept_`) || i.customId.includes(`reject_`)) && 
+        const filter = (i: MessageComponentInteraction) => i.isButton() && 
+                   (i.customId.startsWith(`accept_`) || i.customId.startsWith(`reject_`)) && 
                    i.message.id === messageId;
-        };
 
         const collector = channel.createMessageComponentCollector({ filter, time: 0 });
 
