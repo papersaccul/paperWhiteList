@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   bot:
-    image: ghcr.io/paper_sacculos/paper_bot:latest
+    image: papersaccul/paperwhitelist:latest
     restart: 'on-failure'
     env_file: .env.production
     environment:

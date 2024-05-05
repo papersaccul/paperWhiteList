@@ -1,45 +1,30 @@
-name: Docker
+name: Docker Image CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
-  docker:
+  build-and-push:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v1
-      with:
-        platforms: arm64,amd64
-      
+    - uses: actions/checkout@v3
+
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
-      
-    - name: Login to Docker
-      uses: docker/login-action@v1
-      if: github.event_name != 'pull_request'
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
       with:
-        registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.MY_GITHUB_TOKEN }}
-        
-    - name: Extract Docker metadata
-      uses: docker/metadata-action@v3
-      id: meta
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v3
       with:
-        images: ghcr.io/${{ github.repository }}
-        
-    - name: Build Docker image (and Push to Container Registry for push events)
-      uses: docker/build-push-action@v2
-      with:
-        platforms: amd64,arm64
-        push: ${{ github.event_name != 'pull_request' }}
-        context: .
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
+        push: true
+        tags: papersaccul/paperwhitelist:latest
+

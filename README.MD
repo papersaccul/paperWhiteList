@@ -1,12 +1,12 @@
 # WhiteList Discord Bot
-shit code for my personal single server use
+This bot adds a request form for whitelists on the server.
+When the form is filled out, it goes to moderation with the possibility to accept or reject it.
 
-U can use it as a base for their super-duper-mega bot by removing all my slag from /commands and piling on their own commands (all contents of the /command and /events folders are automatically read out)
 
 ## install
 ```sh
-git clone https://github.com/papersaccul/paperWhiteList
-cd paperWhiteList
+git clone https://github.com/papersaccul/paperwhitelist
+cd paperwhitelist
 npm i
 ```
 
@@ -23,7 +23,7 @@ npm start
 ``` 
 or through docker, u can also pass variables
 ```sh
-docker-compose up -d
+docker-compose up -d 
 ```
 
 ## U can use dev mode, which will autorestart the bot when files are changed
